@@ -132,7 +132,6 @@ while unplayed_indices:
     update = updates[idx]
     print("\n--- New Challenge! ---")
     print("Description:", textwrap.fill(update["desc"], width=70))
-    print(f"(Version: {update['version']})")
 
     guess = input("\nWhat is the popular name of this update? ").strip()
     if guess.lower() == "quit":
@@ -146,7 +145,8 @@ while unplayed_indices:
         score += 1
     else:
         print("Incorrect.")
-        print(f"\nHint: {update['hint']}")
+        # First hint: regular hint
+        print(f"\nHint 1: {update['hint']}")
         guess2 = input("Guess again: ").strip()
         if guess2.lower() == "quit":
             print("\nThanks for playing!")
@@ -155,6 +155,16 @@ while unplayed_indices:
             print("Correct! 🎉")
             score += 1
             continue
+
+        # Second hint: version number
+        print(f"\nHint 2: Version number of this update: {update['version']}")
+        guess3 = input("Last try: ").strip()
+        if guess3.lower() == "quit":
+            print("\nThanks for playing!")
+            break
+        if guess3.lower() == update["name"].lower():
+            print("Correct! 🎉")
+            score += 1
         else:
             print(f"Sorry! The correct answer was: '{update['name']}'.")
 
